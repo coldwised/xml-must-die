@@ -16,6 +16,7 @@
             android:layout_height="match_parent"
             tools:context=".app.fragments.booking.BookingFragment"
             tools:itemCount="5"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/image_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -1,8 +1,6 @@
 package com.example.mdc
 
-import android.content.Context
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mdc.databinding.FragmentFirstBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -21,15 +18,6 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class FirstFragment : Fragment() {
-
-    fun calculateNoOfColumns(
-        context: Context,
-        columnWidthDp: Float
-    ): Int { // For example columnWidthdp=180
-        val displayMetrics: DisplayMetrics = context.resources.displayMetrics
-        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
-        return (screenWidthDp / columnWidthDp + 0.5).toInt()
-    }
 
     private val viewModel: ImagesViewModel by viewModels()
 
@@ -61,8 +49,9 @@ class FirstFragment : Fragment() {
                 }
         }
         val context = context
-        binding.imagesGridView.adapter = adapter
-        binding.imagesGridView.layoutManager = AdaptiveGridLayoutManager(context, 230) //GridLayoutManager(context, calculateNoOfColumns(context!!, 100f))
+        val imagesGridView = binding.imagesGridView
+        imagesGridView.adapter = adapter
+        imagesGridView.layoutManager = AdaptiveGridLayoutManager(context, 270)
     }
 
     override fun onDestroyView() {

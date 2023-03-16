@@ -16,13 +16,15 @@ class AdaptiveGridLayoutManager(context: Context?, columnWidth: Int) :
     }
 
     private fun setColumnWidth(newColumnWidth: Int) {
+        val columnWidth = columnWidth
         if (newColumnWidth > 0 && newColumnWidth != columnWidth) {
-            columnWidth = newColumnWidth
+            this.columnWidth = newColumnWidth
             columnWidthChanged = true
         }
     }
 
     override fun onLayoutChildren(recycler: Recycler, state: RecyclerView.State) {
+        val columnWidth = columnWidth
         if (columnWidthChanged && columnWidth > 0) {
             val totalSpace: Int = if (orientation == VERTICAL) {
                 width - paddingRight - paddingLeft
