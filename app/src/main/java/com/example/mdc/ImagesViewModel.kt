@@ -5,8 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.repository.Repository
 import com.example.mdc.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,8 +15,11 @@ class ImagesViewModel @Inject constructor(
     private val repo: Repository,
 ): ViewModel() {
 
-    private val _state = MutableStateFlow(listOf<String>())
+    private val _state = MutableStateFlow(ImagesState())
     val state = _state.asStateFlow()
+
+//    private val _clickFlow = MutableSharedFlow<String>()
+//    val clickFlow = _clickFlow.asSharedFlow()
 
     init {
         init()
@@ -25,9 +27,23 @@ class ImagesViewModel @Inject constructor(
 
     private fun init() {
         viewModelScope.launch {
-            repo.getImagesUrlList().collect {
-                _state.value = (it as Resource.Success).data
+            repo.getImagesUrlList().collect { result ->
+                when(result) {
+                    is Resource.Success -> {
+                        _state.update {
+                            it.copy(
+                                list = result.data
+                            )
+                        }
+                    } else -> {}
+                }
             }
         }
     }
+
+//    private fun onImageClicked(url: String) {
+//        viewModelScope.launch {
+//            _clickFlow.emit(url)
+//        }
+//    }
 }

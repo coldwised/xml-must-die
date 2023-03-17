@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -39,16 +40,20 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val duration = Toast.LENGTH_SHORT
+        val context = this.context
+        val viewLifecycleOwner = viewLifecycleOwner
 
-        val adapter = ImageListAdapter()
+        val adapter = ImageListAdapter {
+            Toast.makeText(context, it, duration).show()
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { list ->
-                    adapter.submitList(list)
+                .collect { state ->
+                    adapter.submitList(state.list)
                 }
         }
-        val context = context
         val imagesGridView = binding.imagesGridView
         imagesGridView.adapter = adapter
         imagesGridView.layoutManager = AdaptiveGridLayoutManager(context, 270)
