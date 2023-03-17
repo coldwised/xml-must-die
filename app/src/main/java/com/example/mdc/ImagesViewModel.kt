@@ -18,9 +18,6 @@ class ImagesViewModel @Inject constructor(
     private val _state = MutableStateFlow(ImagesState())
     val state = _state.asStateFlow()
 
-//    private val _clickFlow = MutableSharedFlow<String>()
-//    val clickFlow = _clickFlow.asSharedFlow()
-
     init {
         init()
     }
@@ -40,10 +37,4 @@ class ImagesViewModel @Inject constructor(
             }
         }
     }
-
-//    private fun onImageClicked(url: String) {
-//        viewModelScope.launch {
-//            _clickFlow.emit(url)
-//        }
-//    }
 }

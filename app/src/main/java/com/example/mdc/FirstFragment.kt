@@ -41,7 +41,7 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val duration = Toast.LENGTH_SHORT
-        val context = this.context
+        val context = this.requireContext()
         val viewLifecycleOwner = viewLifecycleOwner
 
         val adapter = ImageListAdapter {

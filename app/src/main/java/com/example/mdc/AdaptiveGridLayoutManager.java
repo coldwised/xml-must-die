@@ -5,12 +5,14 @@ import android.content.Context;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AdaptiveGridLayoutManager extends GridLayoutManager {
 
     private int columnWidth = 0;
     private boolean columnWidthChanged = true;
 
-    public AdaptiveGridLayoutManager(Context context, int columnWidth) {
+    public AdaptiveGridLayoutManager(@NotNull Context context, int columnWidth) {
         super(context, 1);
         setColumnWidth(columnWidth);
     }
