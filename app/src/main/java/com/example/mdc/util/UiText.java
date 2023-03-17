@@ -8,6 +8,8 @@ import androidx.annotation.StringRes;
 import org.jetbrains.annotations.NotNull;
 
 public interface UiText {
+
+    @NotNull
     String asString (@NotNull Context context);
 
     class StringResource implements UiText {
