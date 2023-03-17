@@ -21,10 +21,10 @@ public abstract class RepositoryModule {
     @NotNull
     @Binds
     @Singleton
-    abstract Repository bindRepository(RepositoryImpl repositoryImpl);
+    abstract Repository bindRepository(@NotNull RepositoryImpl repositoryImpl);
 
     @NotNull
     @Binds
     @Singleton
-    abstract FileProvider bindFileProvider(FileProviderImpl fileProviderImpl);
+    abstract FileProvider bindFileProvider(@NotNull FileProviderImpl fileProviderImpl);
 }

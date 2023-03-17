@@ -8,7 +8,7 @@ import androidx.annotation.StringRes;
 import org.jetbrains.annotations.NotNull;
 
 public interface UiText {
-    String asString (Context context);
+    String asString (@NotNull Context context);
 
     class StringResource implements UiText {
 
@@ -21,7 +21,7 @@ public interface UiText {
 
         @NotNull
         @Override
-        public String asString(Context context) {
+        public String asString(@NonNull Context context) {
             return context.getString(resId);
         }
     }
@@ -37,7 +37,7 @@ public interface UiText {
 
         @NotNull
         @Override
-        public String asString(Context context) {
+        public String asString(@NonNull Context context) {
             return value;
         }
     }
