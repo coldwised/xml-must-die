@@ -28,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ImageFragment extends Fragment {
 
+    @NotNull
   private static final String KEY_IMAGE_RES = "imageRes";
 
   public static ImageFragment newInstance(@NotNull String imageUrl) {

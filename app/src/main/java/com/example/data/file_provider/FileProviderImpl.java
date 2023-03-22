@@ -15,6 +15,7 @@ import java.io.File;
 import javax.inject.Inject;
 
 public final class FileProviderImpl implements FileProvider {
+    @NotNull
     private final Context context;
 
     @NonNull

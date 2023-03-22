@@ -1,12 +1,15 @@
 package com.example.mdc.adapter;
 
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Holds the image resource references used by the grid and the pager fragments.
  */
 abstract class ImageData {
 
   // Image assets (free for commercial use, no attribution required, from pixabay.com)
+  @NotNull
   static final String[] IMAGES_URL_LIST = {
           "https://www.gstatic.com/404",
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqNZNZvSkBzt5rPSmUNYKNG1MpuC6h1LppdQ",

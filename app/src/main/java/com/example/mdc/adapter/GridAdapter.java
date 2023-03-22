@@ -48,7 +48,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
   @Nullable
   private final ViewHolderListener viewHolderListener;
   @Nullable
-
   private ArrayList<String> list;
 
   /**
@@ -152,7 +151,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
     private final ViewHolderListener viewHolderListener;
 
     ImageViewHolder(@NotNull View itemView, @NonNull RequestManager requestManager,
-                    ViewHolderListener viewHolderListener) {
+                    @NonNull ViewHolderListener viewHolderListener) {
       super(itemView);
       this.image = itemView.findViewById(R.id.card_image);
       this.requestManager = requestManager;
@@ -180,8 +179,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
           .load(list.get(adapterPosition))
           .listener(new RequestListener<Drawable>() {
             @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model,
-                Target<Drawable> target, boolean isFirstResource) {
+            public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model,
+                                        @Nullable  Target<Drawable> target, boolean isFirstResource) {
               viewHolderListener.onLoadCompleted(imageView, adapterPosition);
               return false;
             }
