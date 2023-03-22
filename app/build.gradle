@@ -54,7 +54,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Glide
-
     implementation 'com.github.bumptech.glide:glide:4.15.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
 
@@ -64,6 +63,11 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.3"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+
+    // bad ending
+    implementation "io.reactivex.rxjava3:rxjava:3.1.6"
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 
 }
 

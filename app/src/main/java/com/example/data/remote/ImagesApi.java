@@ -2,6 +2,10 @@ package com.example.data.remote;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayInputStream;
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,6 +17,5 @@ public interface ImagesApi {
 
     @NotNull
     @GET("images.txt")
-    @Streaming
-    Call<ResponseBody> loadFile();
+    Observable<ResponseBody> loadFile();
 }

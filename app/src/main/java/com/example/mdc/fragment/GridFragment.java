@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.SharedElementCallback;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.domain.repository.Repository;
@@ -18,6 +19,9 @@ import com.example.mdc.AdaptiveGridLayoutManager;
 import com.example.mdc.MainActivity;
 import com.example.mdc.R;
 import com.example.mdc.adapter.GridAdapter;
+import com.example.mdc.util.Resource;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class GridFragment extends Fragment {
   @Inject
-  @Nullable
+  @NotNull
   public Repository repo;
 
   @Nullable
@@ -43,12 +47,15 @@ public class GridFragment extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    LifecycleOwner lifecycleOwner = this.getViewLifecycleOwner();
+    GridAdapter gridAdapter = new GridAdapter(this);
+    repo.getImagesUrlList().observe(lifecycleOwner, data -> gridAdapter.submitList(((Resource.Success<ArrayList<String>>) data).data)
+    );
+
+
     recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_grid, container, false);
     RecyclerView recyclerView = this.recyclerView;
-    GridAdapter gridAdapter = new GridAdapter(this);
     recyclerView.setAdapter(gridAdapter);
-    ArrayList<String> list = repo.getImagesUrlList();
-    gridAdapter.submitList(list);
     recyclerView.setLayoutManager(new AdaptiveGridLayoutManager(requireContext(), 280));
 
     prepareTransitions();

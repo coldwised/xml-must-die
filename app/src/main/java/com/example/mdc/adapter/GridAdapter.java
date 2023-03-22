@@ -1,5 +1,6 @@
 package com.example.mdc.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.transition.TransitionSet;
 import android.view.LayoutInflater;
@@ -43,12 +44,12 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
     void onItemClicked(@NotNull View view, int adapterPosition);
   }
 
-  @Nullable
+  @NotNull
   private final RequestManager requestManager;
-  @Nullable
+  @NotNull
   private final ViewHolderListener viewHolderListener;
-  @Nullable
-  private ArrayList<String> list;
+  @NotNull
+  private ArrayList<String> list = new ArrayList<>();
 
   /**
    * Constructs a new grid adapter for the given {@link Fragment}.
@@ -58,8 +59,10 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
     this.viewHolderListener = new ViewHolderListenerImpl(fragment);
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void submitList(@NotNull ArrayList<String> list) {
     this.list = list;
+    notifyDataSetChanged();
   }
 
   @NonNull

@@ -11,6 +11,7 @@ import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -23,6 +24,7 @@ public final class AppModule {
     public ImagesApi provideInterviewApplicationApi() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ImagesApi.BASE_URL)
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(ImagesApi.class);
