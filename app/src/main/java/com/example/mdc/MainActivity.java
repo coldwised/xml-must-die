@@ -3,6 +3,7 @@ package com.example.mdc;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
   private static final String KEY_CURRENT_POSITION = "currentPosition";
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     if (savedInstanceState != null) {

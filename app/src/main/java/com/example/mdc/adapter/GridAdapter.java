@@ -43,8 +43,11 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
     void onItemClicked(@NotNull View view, int adapterPosition);
   }
 
+  @Nullable
   private final RequestManager requestManager;
+  @Nullable
   private final ViewHolderListener viewHolderListener;
+  @Nullable
 
   private ArrayList<String> list;
 
@@ -62,14 +65,14 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
 
   @NonNull
   @Override
-  public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public ImageViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext())
         .inflate(R.layout.image_card, parent, false);
     return new ImageViewHolder(view, requestManager, viewHolderListener);
   }
 
   @Override
-  public void onBindViewHolder(ImageViewHolder holder, int position) {
+  public void onBindViewHolder(@NotNull ImageViewHolder holder, int position) {
     holder.onBind(list);
   }
 
@@ -84,7 +87,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
    */
   private static class ViewHolderListenerImpl implements ViewHolderListener {
 
+    @NonNull
     private final Fragment fragment;
+    @NonNull
     private final AtomicBoolean enterTransitionStarted;
 
     ViewHolderListenerImpl(@NotNull Fragment fragment) {
@@ -139,12 +144,15 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
   static class ImageViewHolder extends RecyclerView.ViewHolder implements
       View.OnClickListener {
 
+    @NotNull
     private final ImageView image;
+    @NotNull
     private final RequestManager requestManager;
+    @NotNull
     private final ViewHolderListener viewHolderListener;
 
-    ImageViewHolder(@NotNull View itemView, RequestManager requestManager,
-        ViewHolderListener viewHolderListener) {
+    ImageViewHolder(@NotNull View itemView, @NonNull RequestManager requestManager,
+                    ViewHolderListener viewHolderListener) {
       super(itemView);
       this.image = itemView.findViewById(R.id.card_image);
       this.requestManager = requestManager;
@@ -179,8 +187,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
             }
 
             @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable>
-                target, DataSource dataSource, boolean isFirstResource) {
+            public boolean onResourceReady(@Nullable Drawable resource, @Nullable Object model, @Nullable Target<Drawable>
+                target, @Nullable DataSource dataSource, boolean isFirstResource) {
               viewHolderListener.onLoadCompleted(imageView, adapterPosition);
               return false;
             }
@@ -189,7 +197,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(@NotNull View view) {
       // Let the listener start the ImagePagerFragment.
       viewHolderListener.onItemClicked(view, getAdapterPosition());
     }
