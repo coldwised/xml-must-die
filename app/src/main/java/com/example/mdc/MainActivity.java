@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+
   public static int currentPosition;
   private static final String KEY_CURRENT_POSITION = "currentPosition";
 

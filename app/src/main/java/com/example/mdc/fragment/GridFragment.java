@@ -33,10 +33,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class GridFragment extends Fragment {
   @Inject
+  @Nullable
   public Repository repo;
 
-  //private final ImagesViewModel viewModel = new ViewModelProvider(this).get(ImagesViewModel.class);
-
+  @Nullable
   private RecyclerView recyclerView;
 
   @Nullable
@@ -71,7 +71,7 @@ public class GridFragment extends Fragment {
     RecyclerView recyclerView = this.recyclerView;
     recyclerView.addOnLayoutChangeListener(new OnLayoutChangeListener() {
       @Override
-      public void onLayoutChange(View v,
+      public void onLayoutChange(@Nullable View v,
           int left,
           int top,
           int right,
@@ -106,7 +106,7 @@ public class GridFragment extends Fragment {
     setExitSharedElementCallback(
         new SharedElementCallback() {
           @Override
-          public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+          public void onMapSharedElements(@Nullable List<String> names, @Nullable Map<String, View> sharedElements) {
             // Locate the ViewHolder for the clicked position.
             RecyclerView.ViewHolder selectedViewHolder = recyclerView
                 .findViewHolderForAdapterPosition(MainActivity.currentPosition);

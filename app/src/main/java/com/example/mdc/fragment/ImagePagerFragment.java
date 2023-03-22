@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.SharedElementCallback;
 import androidx.fragment.app.Fragment;
@@ -32,8 +33,8 @@ public class ImagePagerFragment extends Fragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState) {
     ViewPager viewPager = (ViewPager) inflater.inflate(R.layout.fragment_pager, container, false);
     viewPager.setAdapter(new ImagePagerAdapter(this));
     // Set the current position and add a listener that will update the selection coordinator when
@@ -70,12 +71,12 @@ public class ImagePagerFragment extends Fragment {
     setEnterSharedElementCallback(
         new SharedElementCallback() {
           @Override
-          public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+          public void onMapSharedElements(@Nullable List<String> names, @Nullable Map<String, View> sharedElements) {
             // Locate the image view at the primary fragment (the ImageFragment that is currently
             // visible). To locate the fragment, call instantiateItem with the selection position.
             // At this stage, the method will simply return the fragment at the position and will
             // not create a new one.
-            ViewPager viewPagerParam = viewPager;
+            final ViewPager viewPagerParam = viewPager;
             Fragment currentFragment = (Fragment) Objects.requireNonNull(viewPagerParam.getAdapter())
                 .instantiateItem(viewPagerParam, MainActivity.currentPosition);
             View view = currentFragment.getView();

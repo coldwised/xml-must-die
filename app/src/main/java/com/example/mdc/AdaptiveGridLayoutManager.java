@@ -26,7 +26,7 @@ public class AdaptiveGridLayoutManager extends GridLayoutManager {
     }
 
     @Override
-    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+    public void onLayoutChildren(@NotNull RecyclerView.Recycler recycler, @NotNull RecyclerView.State state) {
         int columnWidth = this.columnWidth;
         if (columnWidthChanged && columnWidth > 0) {
             int totalSpace;

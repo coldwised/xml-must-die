@@ -56,7 +56,7 @@ public class ImageFragment extends Fragment {
         .load(imageUrl)
         .listener(new RequestListener<Drawable>() {
           @Override
-          public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable>
+          public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model, @Nullable Target<Drawable>
               target, boolean isFirstResource) {
             // The postponeEnterTransition is called on the parent ImagePagerFragment, so the
             // startPostponedEnterTransition() should also be called on it to get the transition
@@ -66,7 +66,7 @@ public class ImageFragment extends Fragment {
           }
 
           @Override
-          public boolean onResourceReady(Drawable resource, Object model, Target<Drawable>
+          public boolean onResourceReady(@Nullable Drawable resource, @Nullable Object model, @Nullable Target<Drawable>
               target, DataSource dataSource, boolean isFirstResource) {
             // The postponeEnterTransition is called on the parent ImagePagerFragment, so the
             // startPostponedEnterTransition() should also be called on it to get the transition
