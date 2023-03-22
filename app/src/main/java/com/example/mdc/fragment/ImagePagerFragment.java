@@ -16,6 +16,8 @@ import com.example.mdc.MainActivity;
 import com.example.mdc.R;
 import com.example.mdc.adapter.ImagePagerAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -28,13 +30,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ImagePagerFragment extends Fragment {
 
-  private ViewPager viewPager;
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    viewPager = (ViewPager) inflater.inflate(R.layout.fragment_pager, container, false);
+    ViewPager viewPager = (ViewPager) inflater.inflate(R.layout.fragment_pager, container, false);
     viewPager.setAdapter(new ImagePagerAdapter(this));
     // Set the current position and add a listener that will update the selection coordinator when
     // paging the images.
@@ -46,7 +46,7 @@ public class ImagePagerFragment extends Fragment {
       }
     });
 
-    prepareSharedElementTransition();
+    prepareSharedElementTransition(viewPager);
 
     // Avoid a postponeEnterTransition on orientation change, and postpone only of first creation.
     if (savedInstanceState == null) {
@@ -59,7 +59,8 @@ public class ImagePagerFragment extends Fragment {
   /**
    * Prepares the shared element transition from and back to the grid fragment.
    */
-  private void prepareSharedElementTransition() {
+  private void prepareSharedElementTransition(@NotNull ViewPager viewPager) {
+
     Transition transition =
         TransitionInflater.from(getContext())
             .inflateTransition(R.transition.image_shared_element_transition);
@@ -74,8 +75,9 @@ public class ImagePagerFragment extends Fragment {
             // visible). To locate the fragment, call instantiateItem with the selection position.
             // At this stage, the method will simply return the fragment at the position and will
             // not create a new one.
-            Fragment currentFragment = (Fragment) Objects.requireNonNull(viewPager.getAdapter())
-                .instantiateItem(viewPager, MainActivity.currentPosition);
+            ViewPager viewPagerParam = viewPager;
+            Fragment currentFragment = (Fragment) Objects.requireNonNull(viewPagerParam.getAdapter())
+                .instantiateItem(viewPagerParam, MainActivity.currentPosition);
             View view = currentFragment.getView();
             if (view == null) {
               return;

@@ -18,6 +18,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.mdc.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -28,7 +30,7 @@ public class ImageFragment extends Fragment {
 
   private static final String KEY_IMAGE_RES = "imageRes";
 
-  public static ImageFragment newInstance(String imageUrl) {
+  public static ImageFragment newInstance(@NotNull String imageUrl) {
     ImageFragment fragment = new ImageFragment();
     Bundle argument = new Bundle();
     argument.putString(KEY_IMAGE_RES, imageUrl);

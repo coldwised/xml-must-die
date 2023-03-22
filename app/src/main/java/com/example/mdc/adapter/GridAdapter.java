@@ -22,6 +22,8 @@ import com.example.mdc.MainActivity;
 import com.example.mdc.R;
 import com.example.mdc.fragment.ImagePagerFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -36,9 +38,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
    */
   private interface ViewHolderListener {
 
-    void onLoadCompleted(ImageView view, int adapterPosition);
+    void onLoadCompleted(@NotNull ImageView view, int adapterPosition);
 
-    void onItemClicked(View view, int adapterPosition);
+    void onItemClicked(@NotNull View view, int adapterPosition);
   }
 
   private final RequestManager requestManager;
@@ -49,12 +51,12 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
   /**
    * Constructs a new grid adapter for the given {@link Fragment}.
    */
-  public GridAdapter(Fragment fragment) {
+  public GridAdapter(@NotNull Fragment fragment) {
     this.requestManager = Glide.with(fragment);
     this.viewHolderListener = new ViewHolderListenerImpl(fragment);
   }
 
-  public void submitList(ArrayList<String> list) {
+  public void submitList(@NotNull ArrayList<String> list) {
     this.list = list;
   }
 
@@ -85,13 +87,13 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
     private final Fragment fragment;
     private final AtomicBoolean enterTransitionStarted;
 
-    ViewHolderListenerImpl(Fragment fragment) {
+    ViewHolderListenerImpl(@NotNull Fragment fragment) {
       this.fragment = fragment;
       this.enterTransitionStarted = new AtomicBoolean();
     }
 
     @Override
-    public void onLoadCompleted(ImageView view, int position) {
+    public void onLoadCompleted(@NonNull ImageView view, int position) {
       // Call startPostponedEnterTransition only when the 'selected' image loading is completed.
       if (MainActivity.currentPosition != position) {
         return;
@@ -111,7 +113,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
      * @param position the selected view position
      */
     @Override
-    public void onItemClicked(View view, int position) {
+    public void onItemClicked(@NonNull View view, int position) {
       // Update the position.
       MainActivity.currentPosition = position;
 
@@ -141,7 +143,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
     private final RequestManager requestManager;
     private final ViewHolderListener viewHolderListener;
 
-    ImageViewHolder(View itemView, RequestManager requestManager,
+    ImageViewHolder(@NotNull View itemView, RequestManager requestManager,
         ViewHolderListener viewHolderListener) {
       super(itemView);
       this.image = itemView.findViewById(R.id.card_image);
@@ -156,29 +158,30 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
      * The binding will load the image into the image view, as well as set its transition name for
      * later.
      */
-    void onBind(ArrayList<String> list) {
+    void onBind(@NotNull ArrayList<String> list) {
       int adapterPosition = getAdapterPosition();
       setImage(adapterPosition, list);
       // Set the string value of the image resource as the unique transition name for the view.
       image.setTransitionName(String.valueOf(list.get(adapterPosition)));
     }
 
-    void setImage(final int adapterPosition, ArrayList<String> list) {
+    void setImage(final int adapterPosition, @NotNull ArrayList<String> list) {
       // Load the image with Glide to prevent OOM error when the image drawables are very large.
+      ImageView imageView = image;
       requestManager
           .load(list.get(adapterPosition))
           .listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model,
                 Target<Drawable> target, boolean isFirstResource) {
-              viewHolderListener.onLoadCompleted(image, adapterPosition);
+              viewHolderListener.onLoadCompleted(imageView, adapterPosition);
               return false;
             }
 
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable>
                 target, DataSource dataSource, boolean isFirstResource) {
-              viewHolderListener.onLoadCompleted(image, adapterPosition);
+              viewHolderListener.onLoadCompleted(imageView, adapterPosition);
               return false;
             }
           })

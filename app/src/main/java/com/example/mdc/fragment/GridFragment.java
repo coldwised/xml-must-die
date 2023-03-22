@@ -44,6 +44,7 @@ public class GridFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_grid, container, false);
+    RecyclerView recyclerView = this.recyclerView;
     GridAdapter gridAdapter = new GridAdapter(this);
     recyclerView.setAdapter(gridAdapter);
     ArrayList<String> list = repo.getImagesUrlList();
@@ -67,6 +68,7 @@ public class GridFragment extends Fragment {
    * navigating back from the grid.
    */
   private void scrollToPosition() {
+    RecyclerView recyclerView = this.recyclerView;
     recyclerView.addOnLayoutChangeListener(new OnLayoutChangeListener() {
       @Override
       public void onLayoutChange(View v,
@@ -80,12 +82,13 @@ public class GridFragment extends Fragment {
           int oldBottom) {
         recyclerView.removeOnLayoutChangeListener(this);
         final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-        View viewAtPosition = layoutManager.findViewByPosition(MainActivity.currentPosition);
+        int currentPosition = MainActivity.currentPosition;
+        View viewAtPosition = layoutManager.findViewByPosition(currentPosition);
         // Scroll to position if the view for the current position is null (not currently part of
         // layout manager children), or it's not completely visible.
         if (viewAtPosition == null || layoutManager
             .isViewPartiallyVisible(viewAtPosition, false, true)) {
-          recyclerView.post(() -> layoutManager.scrollToPosition(MainActivity.currentPosition));
+          recyclerView.post(() -> layoutManager.scrollToPosition(currentPosition));
         }
       }
     });
