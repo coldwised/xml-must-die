@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
  */
 abstract class ImageData {
 
-  // Image assets (free for commercial use, no attribution required, from pixabay.com)
   @NotNull
   static final String[] IMAGES_URL_LIST = {
           "https://www.gstatic.com/404",
@@ -73,5 +72,4 @@ abstract class ImageData {
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThhBMDZ3T_irgDB8OCERv0glmnaQfyXsYZKg",
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrhlRkRWv2JlitnghwdCG_YF_vTOgxjMHEDg",
   };
-
 }

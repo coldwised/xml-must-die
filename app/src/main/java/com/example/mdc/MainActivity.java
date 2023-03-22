@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.mdc.fragment.GridFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -18,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
   public static int currentPosition;
+  @NotNull
   private static final String KEY_CURRENT_POSITION = "currentPosition";
 
   @Override

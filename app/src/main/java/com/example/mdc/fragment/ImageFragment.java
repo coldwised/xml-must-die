@@ -31,6 +31,7 @@ public class ImageFragment extends Fragment {
     @NotNull
   private static final String KEY_IMAGE_RES = "imageRes";
 
+    @NotNull
   public static ImageFragment newInstance(@NotNull String imageUrl) {
     ImageFragment fragment = new ImageFragment();
     Bundle argument = new Bundle();
