@@ -80,7 +80,6 @@ public class GridFragment extends Fragment {
     Runnable runnable = new Runnable() {
       @Override
       public void run() {
-        //recyclerView.removeCallbacks(this);
         final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         View viewAtPosition = layoutManager.findViewByPosition(MainActivity.currentPosition);
         if (viewAtPosition == null || layoutManager

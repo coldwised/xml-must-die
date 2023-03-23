@@ -28,6 +28,7 @@ public class RepositoryImpl implements Repository {
     @NotNull
     private final ImagesApi api;
     @Override
+    @NotNull
     public LiveData<Resource<ArrayList<String>>> getImagesUrlList() {
         MutableLiveData<Resource<ArrayList<String>>> result = new MutableLiveData<>();
         try {
