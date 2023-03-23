@@ -19,6 +19,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.mdc.AdaptiveGridLayoutManager;
 import com.example.mdc.MainActivity;
 import com.example.mdc.R;
 import com.example.mdc.fragment.ImagePagerFragment;
@@ -34,9 +35,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolder> {
 
+
   /**
    * A listener that is attached to all ViewHolders to handle image loading events and clicks.
    */
+  @SuppressLint("NotifyDataSetChanged")
+  public void submitList(@NotNull ArrayList<String> list) {
+    this.list = list;
+    notifyDataSetChanged();
+  }
+
   private interface ViewHolderListener {
 
     void onLoadCompleted(@NotNull ImageView view, int adapterPosition);
@@ -57,12 +65,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
   public GridAdapter(@NotNull Fragment fragment) {
     this.requestManager = Glide.with(fragment);
     this.viewHolderListener = new ViewHolderListenerImpl(fragment);
-  }
-
-  @SuppressLint("NotifyDataSetChanged")
-  public void submitList(@NotNull ArrayList<String> list) {
-    this.list = list;
-    notifyDataSetChanged();
   }
 
   @NonNull
@@ -159,7 +161,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
       this.image = itemView.findViewById(R.id.card_image);
       this.requestManager = requestManager;
       this.viewHolderListener = viewHolderListener;
-      itemView.findViewById(R.id.card_image).setOnClickListener(this);
+      this.image.setOnClickListener(this);
     }
 
     /**
@@ -172,11 +174,12 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
       int adapterPosition = getAdapterPosition();
       setImage(adapterPosition, list);
       // Set the string value of the image resource as the unique transition name for the view.
-      image.setTransitionName(String.valueOf(list.get(adapterPosition)));
+      image.setTransitionName(list.get(adapterPosition));
     }
 
     void setImage(final int adapterPosition, @NotNull ArrayList<String> list) {
       // Load the image with Glide to prevent OOM error when the image drawables are very large.
+
       ImageView imageView = image;
       requestManager
           .load(list.get(adapterPosition))
@@ -195,7 +198,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
               return false;
             }
           })
-          .into(image);
+          .into(imageView);
+
     }
 
     @Override
@@ -204,5 +208,4 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
       viewHolderListener.onItemClicked(view, getAdapterPosition());
     }
   }
-
 }

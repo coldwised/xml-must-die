@@ -1,6 +1,7 @@
 package com.example.mdc;
 
 import android.content.Context;
+import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
